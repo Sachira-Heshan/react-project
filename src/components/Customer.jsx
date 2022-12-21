@@ -8,7 +8,7 @@ function Customer(props) {
         <Link to={props.link} className="">
           Name: <span className="underline">{props.name}</span>
         </Link>
-        <h2>Industry: {props.industry}</h2>
+        <p>Industry: {props.industry}</p>
       </div>
     </>
   );

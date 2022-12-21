@@ -42,8 +42,8 @@ export default function Header(props) {
                           to={item.href}
                           className={({ isActive }) => {
                             return isActive
-                              ? "bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium";
+                              ? "bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium no-underline"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline";
                           }}
                         >
                           {item.name}
@@ -66,7 +66,7 @@ export default function Header(props) {
                       item.current
                         ? "bg-gray-900 text-white"
                         : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "block px-3 py-2 rounded-md text-base font-medium"
+                      "block px-3 py-2 rounded-md text-base font-medium no-underline"
                     )}
                     aria-current={item.current ? "page" : undefined}
                   >
