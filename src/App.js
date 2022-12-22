@@ -9,6 +9,7 @@ import Contact from "./pages/Contact";
 import NotFound from "./components/NotFound";
 import Customers from "./pages/Customers";
 import Customer from "./pages/Customer";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Header>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/dictionary" element={<Dictionary />} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/customers/:id" element={<Customer />} />

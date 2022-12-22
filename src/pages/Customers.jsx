@@ -3,24 +3,49 @@ import Customer from "../components/Customer";
 import { useEffect, useState } from "react";
 import AddCustomer from "../components/AddCustomer";
 import { baseURL } from "../shared";
+import { useNavigate, useLocation } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 function Customers() {
   const [customers, setCustomers] = useState("");
   const [show, setShow] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   function toggleShow() {
     setShow(!show);
   }
 
   useEffect(() => {
-    console.log("Fetching...");
-    fetch("http://localhost:8000/api/customers/")
-      .then((response) => response.json())
+    const url = baseURL + "api/customers/";
+    fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("access"),
+      },
+    })
+      .then((response) => {
+        if (response.status === 401) {
+          navigate("/login", {
+            state: {
+              previousUrl: location.pathname,
+            },
+          });
+        }
+        if (response.status === 403) {
+          navigate("/login", {
+            state: {
+              previousUrl: location.pathname,
+            },
+          });
+        }
+        return response.json();
+      })
       .then((data) => {
         console.log(data);
         setCustomers(data.customers);
       });
-  }, []);
+  }, [navigate, location.pathname]);
 
   function newCustomer(name, industry) {
     const newCustomer = {
@@ -32,6 +57,7 @@ function Customers() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("access"),
       },
       body: JSON.stringify(newCustomer),
     })
@@ -59,7 +85,7 @@ function Customers() {
             ? customers.map((customer) => {
                 return (
                   <Customer
-                    key={customer.id}
+                    key={uuidv4()}
                     link={"/customers/" + customer.id}
                     name={customer.name}
                     industry={customer.industry}
